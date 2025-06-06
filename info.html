@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Informations SCP - SCP ÆTHER</title>
+  <style>
+    body {
+      background: #080808;
+      color: #ff0000;
+      font-family: 'Share Tech Mono', monospace;
+      padding: 30px;
+    }
+    h1 {
+      text-shadow: 0 0 15px #ff0000;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 1.1rem;
+      margin: 15px 0;
+    }
+    strong {
+      color: #ff4a4a;
+    }
+    a {
+      color: #ff6666;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="title">Chargement...</h1>
+  <p id="desc"></p>
+  <p id="details"></p>
+  <p><a href="javascript:window.close()">Fermer cet onglet</a></p>
+
+  <script>
+    // Base de données SCP (à garder synchro avec dashboard)
+    const scpData = [
+      {
+        id: 'SCP-049',
+        name: 'Le Médecin Peste',
+        description: 'Une entité humanoïde portant un masque de médecin de la peste du XVIIe siècle.',
+        details: 'Il peut "guérir" les personnes en les transformant en morts-vivants.'
+      },
+      {
+        id: 'SCP-173',
+        name: 'La Statue',
+        description: 'Une sculpture animée qui attaque dès qu’elle n’est plus observée.',
+        details: 'Elle peut se déplacer à grande vitesse lorsqu\'elle n\'est pas dans le champ visuel.'
+      },
+      {
+        id: 'SCP-682',
+        name: 'Le Lézard Indestructible',
+        description: 'Un reptile extrêmement hostile avec une régénération quasi instantanée.',
+        details: 'Il manifeste une haine intense envers toute forme de vie et est quasiment impossible à neutraliser.'
+      },
+      {
+        id: 'SCP-096',
+        name: 'Le Timide',
+        description: 'Une créature sensible à la vue de son visage.',
+        details: 'Il traque toute personne qui voit son visage.'
+      },
+      {
+        id: 'SCP-105',
+        name: 'Iris',
+        description: 'Une femme avec des capacités psychiques liées à la photographie.',
+        details: 'Elle peut interagir à distance via des photos.'
+      },
+      {
+        id: 'SCP-999',
+        name: 'L\'Amour',
+        description: 'Une masse gélatineuse orange qui induit le bonheur.',
+        details: 'Considérée comme une anomalie bénéfique et amicale.'
+      }
+    ];
+
+    // Récupérer l'ID dans l'URL
+    const params = new URLSearchParams(window.location.search);
+    const scpId = params.get('id') ? params.get('id').toUpperCase() : null;
+
+    const titleEl = document.getElementById('title');
+    const descEl = document.getElementById('desc');
+    const detailsEl = document.getElementById('details');
+
+    if (!scpId) {
+      titleEl.textContent = 'Erreur : Aucun identifiant SCP fourni.';
+      descEl.textContent = '';
+      detailsEl.textContent = '';
+    } else {
+      // Chercher dans la base
+      const scp = scpData.find(s => s.id === scpId);
+      if (!scp) {
+        titleEl.textContent = `Aucune anomalie trouvée pour "${scpId}".`;
+        descEl.textContent = '';
+        detailsEl.textContent = '';
+      } else {
+        titleEl.textContent = `${scp.id} - ${scp.name}`;
+        descEl.innerHTML = `<strong>Description :</strong> ${scp.description}`;
+        detailsEl.innerHTML = `<strong>Détails :</strong> ${scp.details}`;
+      }
+    }
+  </script>
+
+</body>
+</html>

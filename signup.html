@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr" >
+<head>
+  <meta charset="UTF-8" />
+  <title>Créer un compte - SCP ÆTHER</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Créer un compte</h1>
+  </header>
+
+  <form id="signupForm">
+    <label for="newUsername">Nom d'utilisateur</label>
+    <input type="text" id="newUsername" required />
+
+    <label for="newPassword">Mot de passe</label>
+    <input type="password" id="newPassword" required />
+
+    <button type="submit" class="button">Créer le compte</button>
+  </form>
+
+  <p style="text-align:center; margin-top: 20px; color: #e74c3c;">
+    Déjà un compte ? <a href="login.html" style="color:#ff4545;">Se connecter</a>
+  </p>
+
+  <footer>
+    <p>&copy; 2025 SCP ÆTHER</p>
+  </footer>
+
+  <script>
+    const signupForm = document.getElementById('signupForm');
+
+    signupForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const username = document.getElementById('newUsername').value.trim();
+      const password = document.getElementById('newPassword').value.trim();
+
+      if(localStorage.getItem('user_' + username)) {
+        alert("Ce nom d'utilisateur est déjà pris.");
+        return;
+      }
+
+      localStorage.setItem('user_' + username, password);
+      alert("Compte créé avec succès ! Vous pouvez maintenant vous connecter.");
+      window.location.href = 'login.html';
+    });
+  </script>
+</body>
+</html>

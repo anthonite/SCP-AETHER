@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr" >
+<head>
+  <meta charset="UTF-8" />
+  <title>Se connecter - SCP ÆTHER</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Se connecter</h1>
+  </header>
+
+  <form id="loginForm">
+    <label for="username">Nom d'utilisateur</label>
+    <input type="text" id="username" required />
+
+    <label for="password">Mot de passe</label>
+    <input type="password" id="password" required />
+
+    <button type="submit" class="button">Se connecter</button>
+  </form>
+
+  <p style="text-align:center; margin-top: 20px; color: #e74c3c;">
+    Pas encore de compte ? <a href="signup.html" style="color:#ff4545;">Créer un compte</a>
+  </p>
+
+  <footer>
+    <p>&copy; 2025 SCP ÆTHER</p>
+  </footer>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      const storedPassword = localStorage.getItem('user_' + username);
+
+      if (!storedPassword) {
+        alert("Utilisateur non trouvé.");
+        return;
+      }
+      if (storedPassword !== password) {
+        alert("Mot de passe incorrect.");
+        return;
+      }
+
+      // Sauvegarde de l'utilisateur connecté
+      localStorage.setItem('loggedUser', username);
+
+      alert("Connexion réussie !");
+      window.location.href = "dashboard.html";
+    });
+  </script>
+</body>
+</html>
